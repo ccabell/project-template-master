@@ -71,6 +71,29 @@ function Go-A360 {
     }
 }
 
+# Function for creating production mirror base projects
+function New-BaseProject {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]$Name,
+        
+        [Parameter(Mandatory=$false)]
+        [string]$Description = "Production-mirrored base project",
+        
+        [Parameter(Mandatory=$false)]
+        [switch]$IncludePageCraft,
+        
+        [Parameter(Mandatory=$false)]
+        [switch]$CreateGitHub,
+        
+        [Parameter(Mandatory=$false)]
+        [switch]$RunAsAdmin
+    )
+    
+    $baseScript = "C:\Users\Chris\Projects\project-template-master\scripts\new-base-project.ps1"
+    & $baseScript -Name $Name -Description $Description -IncludePageCraft:$IncludePageCraft -CreateGitHub:$CreateGitHub -RunAsAdmin:$RunAsAdmin
+}
+
 # Function to quickly navigate to template
 function Go-Template {
     Set-Location "C:\Users\Chris\Projects\project-template-master"
@@ -79,11 +102,13 @@ function Go-Template {
 # Aliases for even quicker access
 Set-Alias -Name "ncp" -Value New-CollaborativeProject
 Set-Alias -Name "na360" -Value New-A360Project
+Set-Alias -Name "nbp" -Value New-BaseProject
 Set-Alias -Name "goa360" -Value Go-A360
 Set-Alias -Name "got" -Value Go-Template
 
 Write-Host "Collaborative Project Functions Loaded:" -ForegroundColor Green
 Write-Host "  New-CollaborativeProject (ncp) - Create general collaborative project" -ForegroundColor Cyan
-Write-Host "  New-A360Project (na360)       - Create A360 ecosystem project" -ForegroundColor Cyan  
+Write-Host "  New-A360Project (na360)       - Create A360 ecosystem project" -ForegroundColor Cyan
+Write-Host "  New-BaseProject (nbp)         - Create production mirror base project" -ForegroundColor Cyan
 Write-Host "  Go-A360 (goa360)             - Navigate to A360 projects" -ForegroundColor Cyan
 Write-Host "  Go-Template (got)            - Navigate to template directory" -ForegroundColor Cyan
